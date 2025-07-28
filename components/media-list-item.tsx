@@ -7,9 +7,8 @@ import { Text, TouchableOpacity, View } from "react-native";
 
 type Props = Adzan;
 
-export default function MediaListItem({ title, muadzin, flag, sound }: Props) {
-  const { player, setPlayer, setIsPlaying } =
-    useAudioPlayerContext();
+export default function MediaListItem({ title, muadzin, flag, sound, id, lyric }: Props) {
+  const { player, setPlayer, setIsPlaying, setAdzan } = useAudioPlayerContext();
 
   const playerInstance = useAudioPlayer(sound);
 
@@ -18,6 +17,7 @@ export default function MediaListItem({ title, muadzin, flag, sound }: Props) {
   }, []);
 
   function handleOnClick() {
+    setAdzan({ id, title, muadzin, flag, sound, lyric });
     player?.replace(sound);
     player?.play();
     setIsPlaying(true);
@@ -38,7 +38,7 @@ export default function MediaListItem({ title, muadzin, flag, sound }: Props) {
     >
       <Image
         source={flag}
-        style={{ width: 40, height: 40, borderRadius: 10 }}
+        style={{ width: 40, height: 40, borderRadius: 10, objectFit: "cover" }}
       />
       <View>
         <Text

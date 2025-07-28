@@ -1,3 +1,4 @@
+import { Adzan } from "@/types";
 import { AudioPlayer } from "expo-audio";
 import {
   createContext,
@@ -14,6 +15,8 @@ type AudioPlayerContextType = {
   setPlayer: Dispatch<SetStateAction<AudioPlayer | undefined>>;
   isPlaying: boolean;
   setIsPlaying: Dispatch<SetStateAction<boolean>>;
+  adzan: Adzan | undefined;
+  setAdzan: Dispatch<SetStateAction<Adzan | undefined>>;
 };
 
 const AudioPlayerContext = createContext<AudioPlayerContextType | undefined>(
@@ -25,10 +28,11 @@ export const AudioPlayerProvider: FC<{ children: ReactNode }> = ({
 }) => {
   const [player, setPlayer] = useState<AudioPlayer | undefined>(undefined);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
+  const [adzan, setAdzan] = useState<Adzan | undefined>(undefined);
 
   return (
     <AudioPlayerContext.Provider
-      value={{ player, setPlayer, isPlaying, setIsPlaying }}
+      value={{ player, setPlayer, isPlaying, setIsPlaying, adzan, setAdzan }}
     >
       {children}
     </AudioPlayerContext.Provider>
